@@ -95,7 +95,7 @@ const registerUser = async (req, res) => {
 // LOGIN !!!
 const loginUser = async (req, res) => {
 	try {
-		// je vais chercger les info dans le req.body
+		// je vais chercher les info dans le req.body
 		const { email, password } = req.body;
 		//je verifie si l'utilisateur existe
 		const user = await User.findOne({ email })
