@@ -29,4 +29,4 @@ app.use('/', require('./routes/authRoutes')) // initialisation avec app on veut 
 // initalisation du port a ecouter
 const port = 8000;
 // fonction associé avec express appelé listen  pour ecouter le port avec une fonction anonyme qui appel le consol log
-app.listen(port, () => console.log(`Server is running on port ${port}`))
+app.listen(port, () => console.log(`Serveur lancé sur le port ${port}`))
