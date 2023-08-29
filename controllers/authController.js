@@ -50,7 +50,7 @@ const registerUser = async (req, res) => {
 			return res.json({
 				error: 'Le numero de téléphone est requis.'
 			})
-		}else if (/^(?:\+33|0)([1-9])(\d{2}){4}$/.test(tel)) {
+		}else if (!/^(?:\+33|0)([1-9]\d{8})$/.test(tel)) {
 			return res.json({
 				error: 'Le numéro de téléphone doit être au format français valide.'
 			})
