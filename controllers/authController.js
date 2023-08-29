@@ -5,30 +5,39 @@ const jwt = require('jsonwebtoken');
 // je fais un teste pour ne pas se retrouver bloquer plus tard et se demander d'ou vient le problem
 
 const test = (req, res) => {
-	res.json('Fetch validé')
+	res.json('Le teste fonctionne')
 }
 
 
 // REGISTER !!!
 const registerUser = async (req, res) => {
 	try {
-		const { fname, lname, age, email, tel, postal, password } = req.body;
+		const { fname, lname, age, email, tel, town, password } = req.body;
 		// j'verifie
 		if (!fname) {
 			return res.json({
-				error: 'Ce champ est requis'
+				error: 'Le prénom est requis.'
 			})
 		};
 		if (!lname) {
 			return res.json({
-				error: 'Ce champ est requis'
+				error: 'Le nom est requis.'
 			})
 		};
+
+		const ageTimeStamp = new Date(age).getTime(); //crée un nouvel objet Date en utilisant la valeur date, getTime() pour obtenir le timestamp associé
+		const ageMin = 16 * 365.25 * 24 * 60 * 60 * 1000; // 16 ans en millisecondes
 		if (!age) {
 			return res.json({
-				error: 'Ce champ est requis'
+				error: 'Votre age est requis.'
 			})
-		};
+		}else if (Date.now() - ageTimeStamp < ageMin) {
+			return res.json({
+				error: 'Vous devez avoir 16 ans minimun.'
+			})
+		}
+
+
 		// Verification d'une adresse email unique 
 		const exist = await User.findOne({ email });
 		if (exist) {
@@ -36,19 +45,30 @@ const registerUser = async (req, res) => {
 				error: "L'adresse e-mail est déjà associée à un compte Chava"
 			})
 		}
+
 		if (!tel) {
 			return res.json({
-				error: 'Ce champ est requis'
+				error: 'Le numero de téléphone est requis.'
 			})
-		};
-		if (!postal) {
+		}else if (/^(?:\+33|0)([1-9])(\d{2}){4}$/.test(tel)) {
 			return res.json({
-				error: 'Ce champ est requis'
+				error: 'Le numéro de téléphone doit être au format français valide.'
 			})
-		};
+		}
+
+		if (!town) {
+			return res.json({
+				error: 'La ville est requise.'
+			});
+		} else if (!/^[a-zA-Z\s\-']+$/.test(town)) {
+			return res.json({
+				error: 'Le format de la ville est invalide'
+			});
+		}
+
 		if (!password) {
 			return res.json({
-				error: 'Ce champ est requis'
+				error: 'Le mot de passe est requis'
 			})
 
 		} else if (password.length < 8) {
@@ -83,7 +103,7 @@ const registerUser = async (req, res) => {
 		const hashedPassword = await hashPassword(password)
 		// créer l'user dans dataBase
 		const user = await User.create({
-			fname, lname, age, email, tel, postal, password: hashedPassword,
+			fname, lname, age, email, tel, town, password: hashedPassword,
 		});
 
 		return res.json(user)
@@ -92,6 +112,7 @@ const registerUser = async (req, res) => {
 		console.log(error);
 	}
 }
+
 // LOGIN !!!
 const loginUser = async (req, res) => {
 	try {
