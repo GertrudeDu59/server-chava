@@ -5,6 +5,7 @@ const cors = require('cors');
 const { test, registerUser, loginUser, getProfile } = require('../controllers/authController')
 const { getUsers, getUserEmail } = require('../controllers/getController')
 const { registerOptions } = require('../controllers/optionsController')
+const { registerRatings } = require('../controllers/optionsController')
 
 //  middleware
 // le router va utiliser cors qui contient 2 parametres 
@@ -25,5 +26,6 @@ router.get('/Profile', getProfile)
 router.get("/users", getUsers)
 router.get("/check", getUserEmail)
 router.put("/registerOptions/:userId", registerOptions)
+router.put("/registerRatings/:userId", registerRatings)
 
 module.exports = router;
