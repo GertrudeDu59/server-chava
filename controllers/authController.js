@@ -12,23 +12,29 @@ const test = (req, res) => {
 // REGISTER !!!
 const registerUser = async (req, res) => {
 	try {
-		const { fname, lname, age, email, tel, postal, password } = req.body;
+		const { fname, lname, age, email, tel, town, password } = req.body;
 		// j'verifie
 		if (!fname) {
 			return res.json({
-				error: 'Ce champ est requis'
+				error: 'Le prénom est requis.'
 			})
 		};
 		if (!lname) {
 			return res.json({
-				error: 'Ce champ est requis'
+				error: 'Le nom est requis.'
 			})
 		};
 		if (!age) {
 			return res.json({
-				error: 'Ce champ est requis'
+				error: 'Votre age est requis'
 			})
-		};
+		}else if ( age < 16) {
+			return res.json({
+				error: 'Vous devez avoir 16 ans minimun.'
+			})
+		}
+
+
 		// Verification d'une adresse email unique 
 		const exist = await User.findOne({ email });
 		if (exist) {
@@ -36,16 +42,27 @@ const registerUser = async (req, res) => {
 				error: "L'adresse e-mail est déjà associée à un compte Chava"
 			})
 		}
+
 		if (!tel) {
 			return res.json({
-				error: 'Ce champ est requis'
+				error: 'Le numero de téléphone est requis.'
 			})
-		};
-		if (!postal) {
+		}else if (/^(?:\+33|0)([1-9])(\d{2}){4}$/.test(tel)) {
 			return res.json({
-				error: 'Ce champ est requis'
+				error: 'Le numéro de téléphone doit être au format français valide.'
 			})
-		};
+		}
+
+		if (!town) {
+			return res.json({
+				error: 'La ville est requis.'
+			})
+		} else if (/^[a-zA-Z\s\-']+$/.test(town)) {
+			return res.json({
+				error: 'Le format de la ville est invalide'
+			})
+		}
+
 		if (!password) {
 			return res.json({
 				error: 'Ce champ est requis'
@@ -92,6 +109,7 @@ const registerUser = async (req, res) => {
 		console.log(error);
 	}
 }
+
 // LOGIN !!!
 const loginUser = async (req, res) => {
 	try {

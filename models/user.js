@@ -14,7 +14,7 @@ const userSchema = new Schema ({
         unique: true, // garantit que chaque adresse e-mail dans la collection doit être unique, ce qui permet d'éviter la duplication de données et d'assurer
     },
     tel: Number,
-    postal: Number,
+    town: String,
     password: String,
 })
 
