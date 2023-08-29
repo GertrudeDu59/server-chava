@@ -24,6 +24,6 @@ router.post('/Login', loginUser)
 router.get('/Profile', getProfile)
 router.get("/users", getUsers)
 router.get("/check", getUserEmail)
-router.post("/registerOptions", registerOptions)
+router.put("/registerOptions/:userId", registerOptions)
 
-module.exports = router
+module.exports = router;
