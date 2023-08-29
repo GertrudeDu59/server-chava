@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 // je fais un teste pour ne pas se retrouver bloquer plus tard et se demander d'ou vient le problem
 
 const test = (req, res) => {
-	res.json('Fetch validé')
+	res.json('Le teste fonctionne')
 }
 
 
@@ -24,11 +24,14 @@ const registerUser = async (req, res) => {
 				error: 'Le nom est requis.'
 			})
 		};
+
+		const ageTimeStamp = new Date(age).getTime(); //crée un nouvel objet Date en utilisant la valeur date, getTime() pour obtenir le timestamp associé
+		const ageMin = 16 * 365.25 * 24 * 60 * 60 * 1000; // 16 ans en millisecondes
 		if (!age) {
 			return res.json({
-				error: 'Votre age est requis'
+				error: 'Votre age est requis.'
 			})
-		}else if ( age < 16) {
+		}else if (Date.now() - ageTimeStamp < ageMin) {
 			return res.json({
 				error: 'Vous devez avoir 16 ans minimun.'
 			})
@@ -55,17 +58,17 @@ const registerUser = async (req, res) => {
 
 		if (!town) {
 			return res.json({
-				error: 'La ville est requis.'
-			})
-		} else if (/^[a-zA-Z\s\-']+$/.test(town)) {
+				error: 'La ville est requise.'
+			});
+		} else if (!/^[a-zA-Z\s\-']+$/.test(town)) {
 			return res.json({
 				error: 'Le format de la ville est invalide'
-			})
+			});
 		}
 
 		if (!password) {
 			return res.json({
-				error: 'Ce champ est requis'
+				error: 'Le mot de passe est requis'
 			})
 
 		} else if (password.length < 8) {
@@ -100,7 +103,7 @@ const registerUser = async (req, res) => {
 		const hashedPassword = await hashPassword(password)
 		// créer l'user dans dataBase
 		const user = await User.create({
-			fname, lname, age, email, tel, postal, password: hashedPassword,
+			fname, lname, age, email, tel, town, password: hashedPassword,
 		});
 
 		return res.json(user)
