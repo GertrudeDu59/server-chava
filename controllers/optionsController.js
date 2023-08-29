@@ -4,11 +4,12 @@ const Options = require('../models/options');
 const registerOptions = async (req, res) => {
 	try {
 		const { userId } = req.params; 
-		const { description, image, services, pet } = req.body.options;
+		const { description, image, services, pet, petSitter } = req.body.options;
 
 		const updatedUser = await User.findOneAndUpdate(
 			{ _id: userId }, 
 			{
+				'options.pet' : petSitter,
 				'options.pet': pet, 
 				'options.description': description, 
 				'options.services': services,

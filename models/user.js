@@ -17,6 +17,7 @@ const userSchema = new Schema({
 	town: String,
 	password: String,
 	options: {
+		petSitter: { type: Boolean, default: false },
 		pet: String,
 		description: String,
 		services: String,
