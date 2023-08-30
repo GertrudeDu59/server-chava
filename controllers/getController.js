@@ -16,9 +16,9 @@ const getUserEmail = async (req, res) => {
 	try {
 		const user = await User.findOne({ email })
 		if (user) {
-			return res.json({ message: "L'utilisateur est trouvé" });
+			return res.json({ message: "Votre email a été trouvé" });
 		} else {
-			return res.json({ error: "L'utilisateur est introuvable" });
+			return res.json({ error: "Votre email n'a pas été trouvé" });
 		}
 	} catch (error) {
 		console.error(error);

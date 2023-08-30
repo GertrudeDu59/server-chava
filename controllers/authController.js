@@ -31,7 +31,7 @@ const registerUser = async (req, res) => {
 			return res.json({
 				error: 'Votre age est requis.'
 			})
-		}else if (Date.now() - ageTimeStamp < ageMin) {
+		} else if (Date.now() - ageTimeStamp < ageMin) {
 			return res.json({
 				error: 'Vous devez avoir 16 ans minimun.'
 			})
@@ -50,7 +50,7 @@ const registerUser = async (req, res) => {
 			return res.json({
 				error: 'Le numero de téléphone est requis.'
 			})
-		}else if (!/^(?:\+33|0)([1-9]\d{8})$/.test(tel)) {
+		} else if (/^(?:\+33|0)([1-9])(\d{2}){4}$/.test(tel)) {
 			return res.json({
 				error: 'Le numéro de téléphone doit être au format français valide.'
 			})
@@ -163,7 +163,19 @@ const getProfile = (req, res) => {
 		res.json(null)
 	}
 }
-
+const logOut = (req, res) => {
+	const { token } = req.cookies;
+	if (token) {
+	  res.cookie('token', '', { expires: new Date(0) });
+	  return res.json({
+		message: 'Déconnexion réussie',
+	  });
+	} else {
+	  return res.json({
+		error: 'Erreur de base de données',
+	  });
+	}
+  };
 
 
 module.exports = {
@@ -171,4 +183,5 @@ module.exports = {
 	registerUser,
 	loginUser,
 	getProfile,
+	logOut
 }
