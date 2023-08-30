@@ -163,6 +163,8 @@ const getProfile = (req, res) => {
 		res.json(null)
 	}
 }
+
+
 const logOut = (req, res) => {
 	const { token } = req.cookies;
 	if (token) {
