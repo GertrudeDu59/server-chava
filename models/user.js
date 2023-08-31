@@ -23,7 +23,26 @@ const userSchema = new Schema({
 		services: String,
 		rating: { type: Number, default: 0 },
 		ratingNumber: { type: Number, default: 0 },
-		image: String
+		image: String,
+		pet: {
+			Chat: { type: Boolean, default: false },
+			Chien: { type: Boolean, default: false },
+			Lapin: { type: Boolean, default: false },
+			Hamster: { type: Boolean, default: false },
+		},
+		petOffer: {
+			Chat: { type: Boolean, default: false },
+			Chien: { type: Boolean, default: false },
+			Lapin: { type: Boolean, default: false },
+			Hamster: { type: Boolean, default: false },
+		},
+		services: {
+
+				Hébergement: { type: Boolean, default: false },
+				Garde: { type: Boolean, default: false },
+				Promenade: { type: Boolean, default: false },
+				Visite: { type: Boolean, default: false },
+		}
 	}
 })
 

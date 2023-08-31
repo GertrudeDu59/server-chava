@@ -1,38 +1,45 @@
 const User = require('../models/user');
 const Options = require('../models/options');
 
-const registerOptions = async (req, res) => {
+const registerPetSitter = async (req, res) => {
 	try {
 		const { userId } = req.params;
-		const { description, image, services, pet, petSitter } = req.body.options;
+		const {
+			description,
+			services,
+			pet,
+			petOffer,
+			petSitter,
+		} = req.body.options;
 
 		const updatedUser = await User.findOneAndUpdate(
 			{ _id: userId },
 			{
-				'options.petSitter': petSitter,
 				'options.pet': pet,
+				'options.petOffer': petOffer,
 				'options.description': description,
 				'options.services': services,
-				'options.image': image
+				'options.petSitter': petSitter,
 			},
 			{ new: true }
 		);
 
 		if (updatedUser) {
-			return res.json({ message: "Options are updated", user: updatedUser });
+			return res.json({ message: "Options ont été modifiés", user: updatedUser });
 		} else {
-			return res.json({ error: "Options update failed" });
+			return res.json({ error: "Impossible d'ajouter les options" });
 		}
 	} catch (error) {
 		console.log(error);
-		return res.status(500).json({ error: "Internal server error" });
+		return res.status(500).json({ error: "Erreur de serveur" });
 	}
-}
+};
+
 
 const registerRatings = async (req, res) => {
 	try {
 		const { userId } = req.params;
-		const { rating,ratingNumber } = req.body.options;
+		const { rating, ratingNumber } = req.body.options;
 
 		const updatedUser = await User.findOneAndUpdate(
 			{ _id: userId },
@@ -55,6 +62,6 @@ const registerRatings = async (req, res) => {
 }
 
 module.exports = {
-	registerOptions,
+	registerPetSitter,
 	registerRatings
 };

@@ -132,7 +132,7 @@ const loginUser = async (req, res) => {
 		// si le mdp est bon on ajoute un tokken donc un cookie qui va tracker durant l'application
 		if (match) {
 			//on utilise le parametre .sign cela va signer le token
-			jwt.sign({ email: user.email, id: user._id, fname: user.fname, lname: user.lname }, process.env.JWT_SECRET, {},
+			jwt.sign({ email: user.email, id: user._id, fname: user.fname, lname: user.lname, options: { petSitter: user.options.petSitter } }, process.env.JWT_SECRET, {},
 				(err, token) => {
 					if (err) throw err;
 					res.cookie('token', token).json(user)
@@ -167,16 +167,16 @@ const getProfile = (req, res) => {
 const logOut = (req, res) => {
 	const { token } = req.cookies;
 	if (token) {
-	  res.cookie('token', '', { expires: new Date(0) });
-	  return res.json({
-		message: 'Déconnexion réussie',
-	  });
+		res.cookie('token', '', { expires: new Date(0) });
+		return res.json({
+			message: 'Déconnexion réussie',
+		});
 	} else {
-	  return res.json({
-		error: 'Erreur de base de données',
-	  });
+		return res.json({
+			error: 'Erreur de base de données',
+		});
 	}
-  };
+};
 
 
 module.exports = {
@@ -184,5 +184,6 @@ module.exports = {
 	registerUser,
 	loginUser,
 	getProfile,
-	logOut
+	logOut,
+
 }
