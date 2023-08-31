@@ -25,23 +25,22 @@ const userSchema = new Schema({
 		ratingNumber: { type: Number, default: 0 },
 		image: String,
 		pet: {
-			Chat: { type: Boolean, default: false },
-			Chien: { type: Boolean, default: false },
-			Lapin: { type: Boolean, default: false },
-			Hamster: { type: Boolean, default: false },
+			owner_cat: { type: Boolean, default: false },
+			owner_dog: { type: Boolean, default: false },
+			owner_rabbit: { type: Boolean, default: false },
+			owner_hamster: { type: Boolean, default: false },
 		},
 		petOffer: {
-			Chat: { type: Boolean, default: false },
-			Chien: { type: Boolean, default: false },
-			Lapin: { type: Boolean, default: false },
-			Hamster: { type: Boolean, default: false },
+			offer_cat: { type: Boolean, default: false },
+			offer_dog: { type: Boolean, default: false },
+			offer_rabbit: { type: Boolean, default: false },
+			offer_hamster: { type: Boolean, default: false },
 		},
 		services: {
-
-				Hébergement: { type: Boolean, default: false },
-				Garde: { type: Boolean, default: false },
-				Promenade: { type: Boolean, default: false },
-				Visite: { type: Boolean, default: false },
+			keep: { type: Boolean, default: false },
+			lodging: { type: Boolean, default: false },
+			walking: { type: Boolean, default: false },
+			visit: { type: Boolean, default: false },
 		}
 	}
 })
