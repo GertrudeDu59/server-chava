@@ -3,35 +3,44 @@ const Options = require('../models/options');
 
 const registerPetSitter = async (req, res) => {
 	try {
-		const { userId } = req.params;
-		const {
-			description,
-			services,
-			pet,
-			petOffer,
-			petSitter,
-		} = req.body.options;
-
-		const updatedUser = await User.findOneAndUpdate(
-			{ _id: userId },
-			{
-				'options.pet': pet,
-				'options.petOffer': petOffer,
-				'options.description': description,
-				'options.services': services,
-				'options.petSitter': petSitter,
-			},
-			{ new: true }
-		);
-
-		if (updatedUser) {
-			return res.json({ message: "Options ont été modifiés", user: updatedUser });
-		} else {
-			return res.json({ error: "Impossible d'ajouter les options" });
-		}
+	  const { userId } = req.params;
+	  const {
+		description,
+		services,
+		pet,
+		petOffer,
+		petSitter,
+	  } = req.body.options;
+  
+	  // Check if at least one checkbox is selected in each option
+	  if (!Object.values(pet).some(value => value) ||
+	      !Object.values(petOffer).some(value => value) ||
+	      !Object.values(services).some(value => value)) {
+		return res.json({
+			error: 'Veuiller sélectionner au moins une options par catégorie'
+		});
+	  }
+  
+	  const updatedUser = await User.findOneAndUpdate(
+		{ _id: userId },
+		{
+		  'options.pet': pet,
+		  'options.petOffer': petOffer,
+		  'options.description': description,
+		  'options.services': services,
+		  'options.petSitter': petSitter,
+		},
+		{ new: true }
+	  );
+  
+	  if (updatedUser) {
+		return res.json({ message: "Options have been updated", user: updatedUser });
+	  } else {
+		return res.json({ error: "Unable to update options" });
+	  }
 	} catch (error) {
-		console.log(error);
-		return res.status(500).json({ error: "Erreur de serveur" });
+	  console.log(error);
+	  return res.status(500).json({ error: "Server error" });
 	}
 };
 

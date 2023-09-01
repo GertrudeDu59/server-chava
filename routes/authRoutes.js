@@ -4,6 +4,7 @@ const router = express.Router();
 const cors = require('cors');
 const { test, registerUser, loginUser, getProfile ,logOut} = require('../controllers/authController')
 const { getUsers, getUserEmail } = require('../controllers/getController')
+const { animalsFilter, serviceFilter } = require('../controllers/filtersController')
 const { registerPetSitter,  registerRatings} = require('../controllers/optionsController')
 
 //  middleware
@@ -19,12 +20,19 @@ router.use(
 // } on remplace ça par ce qu'il y a en dessous pour un travail plus propre et ordonnée. Et on l'ecris dans autchController à la place 
 router.get('/', test)
 // je le definie dans authControllers.
+
+// Requete post
 router.post('/Register', registerUser)
 router.post('/Login', loginUser)
+// Requete get
 router.get('/Profile', getProfile)
-router.delete('/logOut', logOut)
 router.get("/users", getUsers)
 router.get("/check", getUserEmail)
+router.get("/animalsfilter/:animal_type", animalsFilter)
+router.get("/servicesFilter/:service_type", serviceFilter)
+// Requete delete
+router.delete('/logOut', logOut)
+// Requete modification
 router.put("/registerRatings/:userId", registerRatings)
 router.put("/registerPetSitter/:userId", registerPetSitter)
 
