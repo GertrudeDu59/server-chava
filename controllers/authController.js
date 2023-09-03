@@ -178,6 +178,34 @@ const logOut = (req, res) => {
 	}
 };
 
+// register via postman 
+
+const registerAllUser = async (req, res) => {
+	try {
+		const { fname, lname, age, email, tel, town, password } = req.body;
+		const {
+			description,
+			services,
+			pet,
+			petOffer,
+			petSitter,
+		  } = req.body.options;
+		
+
+		// je créer la const hashedPassword qui va recuperer la fonction hashPassword avec comme parametre le mdp de l'user                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+		const hashedPassword = await hashPassword(password)
+		// créer l'user dans dataBase
+		const user = await User.create({
+			fname, lname, age, email, tel, town, password: hashedPassword, description,services,pet,petOffer,petSitter
+		});
+
+		return res.json(user)
+
+	} catch (error) {
+		console.log(error);
+	}
+}
+
 
 module.exports = {
 	test,
@@ -185,5 +213,6 @@ module.exports = {
 	loginUser,
 	getProfile,
 	logOut,
+	registerAllUser
 
 }
