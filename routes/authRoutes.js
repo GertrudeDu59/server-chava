@@ -6,6 +6,7 @@ const { test, registerUser, loginUser, getProfile ,logOut} = require('../control
 const { getUsers, getUserEmail } = require('../controllers/getController')
 const { registerOptions } = require('../controllers/optionsController')
 const { registerRatings } = require('../controllers/optionsController')
+const { getComment } = require('../controllers/commentController')
 
 //  middleware
 // le router va utiliser cors qui contient 2 parametres 
@@ -20,13 +21,20 @@ router.use(
 // } on remplace ça par ce qu'il y a en dessous pour un travail plus propre et ordonnée. Et on l'ecris dans autchController à la place 
 router.get('/', test)
 // je le definie dans authControllers.
+
+//AuthController
 router.post('/Register', registerUser)
 router.post('/Login', loginUser)
 router.get('/Profile', getProfile)
 router.delete('/logOut', logOut)
+//GetController
 router.get("/users", getUsers)
 router.get("/check", getUserEmail)
+//OptionsControllers
 router.put("/registerOptions/:userId", registerOptions)
 router.put("/registerRatings/:userId", registerRatings)
+//CommentControllers
+router.get('/users/:userId/comments', getComment )
+
 
 module.exports = router;
