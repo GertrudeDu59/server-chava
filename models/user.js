@@ -16,7 +16,6 @@ const userSchema = new Schema({
 	tel: Number,
 	town: String,
 	password: String,
-	comments: [{ type: Schema.Types.ObjectId, ref: 'comment' }], //  commentaires associés à cet utilisateur
 	options: {
 		petSitter: { type: Boolean, default: false },
 		pet: String,
