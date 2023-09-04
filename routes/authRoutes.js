@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const cors = require('cors');
 const { test, registerUser, loginUser, getProfile ,logOut, registerAllUser} = require('../controllers/authController')
-const { getUsers, getUserEmail } = require('../controllers/getController')
+const { getUsers, getUserEmail ,getUsersBase, getUserId} = require('../controllers/getController')
 const { animalsFilter, serviceFilter } = require('../controllers/filtersController')
 const { registerPetSitter,  registerRatings} = require('../controllers/optionsController')
 
@@ -28,6 +28,8 @@ router.post('/registerAll', registerAllUser)
 // Requete get
 router.get('/Profile', getProfile)
 router.get("/users", getUsers)
+router.get("/usersbase", getUsersBase)
+router.get("/getUserId/:userid", getUserId)
 router.get("/check", getUserEmail)
 router.get("/animalsfilter/:animal_type", animalsFilter)
 router.get("/servicesFilter/:service_type", serviceFilter)

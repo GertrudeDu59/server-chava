@@ -27,6 +27,7 @@ const registerUser = async (req, res) => {
 
 		const ageTimeStamp = new Date(age).getTime(); //crée un nouvel objet Date en utilisant la valeur date, getTime() pour obtenir le timestamp associé
 		const ageMin = 16 * 365.25 * 24 * 60 * 60 * 1000; // 16 ans en millisecondes
+		const ageMax = 100 * 365.25 * 24 * 60 * 60 * 1000; 
 		if (!age) {
 			return res.json({
 				error: 'Votre age est requis.'
@@ -34,6 +35,12 @@ const registerUser = async (req, res) => {
 		} else if (Date.now() - ageTimeStamp < ageMin) {
 			return res.json({
 				error: 'Vous devez avoir 16 ans minimun.'
+			})
+		
+		}
+		else if (Date.now() - ageTimeStamp > ageMax){
+			return res.json({
+				error:"La date n'est pas valide"
 			})
 		}
 
