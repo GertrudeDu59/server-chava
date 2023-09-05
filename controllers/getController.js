@@ -1,6 +1,8 @@
 
 const User = require('../models/user');
-const getUsers = async (req, res) => {
+
+
+const getPetSitters = async (req, res) => {
 	try {
 		const { limit, page } = req.query;
 		const perPage = parseInt(limit) || 10;
@@ -35,7 +37,7 @@ const getUserEmail = async (req, res) => {
 };
 
 
-const getUsersBase = async (req, res) => {
+const getUsersHome = async (req, res) => {
 	try {
 		const users = await User
 			.find()
@@ -49,25 +51,10 @@ const getUsersBase = async (req, res) => {
 	}
 };
 
-const getUserId = async (req, res) => {
-	const { userid } = req.params;
-	try {
-		const user = await User.findOne({ userid })
-		if (user) {
-			return res.json({ message: "L'utilisateur correspond" });
-		} else {
-			return res.json({ error: "Id introuvable" });
-		}
-	} catch (error) {
-		console.error(error);
-		return res.json({ error: "Erreur base de données" });
-	}
-
-}
 
 module.exports = {
-	getUsers,
+	getPetSitters,
 	getUserEmail,
-	getUsersBase,
-	getUserId
+	getUsersHome,
+
 }

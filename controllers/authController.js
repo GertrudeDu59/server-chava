@@ -157,7 +157,7 @@ const loginUser = async (req, res) => {
 
 
 // PORFILE
-const getProfile = (req, res) => {
+const getToken = (req, res) => {
 	// la req va etre le cookie token que l'on retrouve lorsqu'on login que l'on retrouve dans l'inpecteur network
 	const { token } = req.cookies
 	if (token) {
@@ -171,7 +171,7 @@ const getProfile = (req, res) => {
 	}
 }
 
-const logOut = (req, res) => {
+const logout = (req, res) => {
 	const { token } = req.cookies;
 	if (token) {
 		res.cookie('token', '', { expires: new Date(0) });
@@ -185,41 +185,13 @@ const logOut = (req, res) => {
 	}
 };
 
-// register via postman 
 
-const registerAllUser = async (req, res) => {
-	try {
-		const { fname, lname, age, email, tel, town, password } = req.body;
-		const {
-			description,
-			services,
-			pet,
-			petOffer,
-			petSitter,
-		  } = req.body.options;
-		
-
-		// je créer la const hashedPassword qui va recuperer la fonction hashPassword avec comme parametre le mdp de l'user                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-		const hashedPassword = await hashPassword(password)
-		// créer l'user dans dataBase
-		const user = await User.create({
-			fname, lname, age, email, tel, town, password: hashedPassword, description,services,pet,petOffer,petSitter
-		});
-
-		return res.json(user)
-
-	} catch (error) {
-		console.log(error);
-	}
-}
 
 
 module.exports = {
 	test,
 	registerUser,
 	loginUser,
-	getProfile,
-	logOut,
-	registerAllUser
-
+	getToken,
+	logout,
 }

@@ -2,10 +2,10 @@
 const express = require('express');
 const router = express.Router();
 const cors = require('cors');
-const { test, registerUser, loginUser, getProfile ,logOut, registerAllUser} = require('../controllers/authController')
-const { getUsers, getUserEmail ,getUsersBase, getUserId} = require('../controllers/getController')
+const { test, registerUser, loginUser, getToken ,logout} = require('../controllers/authController')
+const { getPetSitters, getUserEmail ,getUsersHome} = require('../controllers/getController')
 const { animalsFilter, serviceFilter } = require('../controllers/filtersController')
-const { registerPetSitter,  registerRatings} = require('../controllers/optionsController')
+const { registerPetSitter} = require('../controllers/optionsController')
 
 //  middleware
 // le router va utiliser cors qui contient 2 parametres 
@@ -21,22 +21,28 @@ router.use(
 router.get('/', test)
 // je le definie dans authControllers.
 
-// Requete post
-router.post('/Register', registerUser)
-router.post('/Login', loginUser)
-router.post('/registerAll', registerAllUser)
-// Requete get
-router.get('/Profile', getProfile)
-router.get("/users", getUsers)
-router.get("/usersbase", getUsersBase)
-router.get("/getUserId/:userid", getUserId)
+
+// Requete via le useContext
+router.get('/token', getToken)
+
+// Route de connexion et enregistrement
 router.get("/check", getUserEmail)
+router.post('/register', registerUser)
+router.post('/login', loginUser)
+router.put("/addprofile/:userId", registerPetSitter)
+router.delete('/logout', logout)
+
+// Route pour la page home 
+router.get("/getusershome", getUsersHome)
+
+// Route pour les filtres sur la page service 
+router.get("/getpetsitters", getPetSitters)
 router.get("/animalsfilter/:animal_type", animalsFilter)
-router.get("/servicesFilter/:service_type", serviceFilter)
-// Requete delete
-router.delete('/logOut', logOut)
-// Requete modification
-router.put("/registerRatings/:userId", registerRatings)
-router.put("/registerPetSitter/:userId", registerPetSitter)
+router.get("/servicesfilter/:service_type", serviceFilter)
+
+
+
+
+
 
 module.exports = router;
