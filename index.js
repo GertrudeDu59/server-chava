@@ -6,7 +6,6 @@ const {mongoose} = require('mongoose')
 const cookieParser = require('cookie-parser')
 const app = express();
 
-
 // connection base de donnée
 mongoose.connect(process.env.MONGO_URL)
 // si c'est true on affiche database est connecté 
@@ -21,10 +20,7 @@ app.use(cookieParser());
 // Cette ligne de code dit au serveur comment "déballer" les informations envoyées depuis le formulaire, afin qu'il puisse les comprendre.
 app.use(express.urlencoded({extended: false}))
 
-
 app.use('/', require('./routes/authRoutes')) // initialisation avec app on veut donc que toutes les routes aille vers '/'
-
-
 
 // initalisation du port a ecouter
 const port = 8000;

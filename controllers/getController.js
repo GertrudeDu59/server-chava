@@ -1,6 +1,6 @@
 
 const User = require('../models/user');
-
+const Profile = require("../models/profile")
 
 const getPetSitters = async (req, res) => {
 	try {
@@ -10,9 +10,9 @@ const getPetSitters = async (req, res) => {
 
 		const skip = (currentPage - 1) * perPage;
 
-		const users = await User.find({ 'options.petSitter': true })
-			.skip(skip)
-			.limit(perPage);
+		const users = await Profile.find({ 'isPetSitter': true }).populate('user_id', 'fname lname town')
+
+
 
 		res.status(200).json(users);
 	} catch (error) {
@@ -36,13 +36,13 @@ const getUserEmail = async (req, res) => {
 	}
 };
 
-
 const getUsersHome = async (req, res) => {
 	try {
 		const users = await User
 			.find()
 			.sort({ _id: -1 })
-			.limit(6);
+			.limit(6)
+			.populate('profile');
 
 		res.status(200).json(users);
 	} catch (error) {
@@ -51,10 +51,48 @@ const getUsersHome = async (req, res) => {
 	}
 };
 
+const getProfileUser = async (req, res) => {
+	const { userId } = req.params;
+	try {
+		const profile = await Profile.findOne({ user_id: userId });
+
+		if (profile) {
+			return res.json({ message: "Votre profil a été trouvé", profile: profile });
+		} else {
+			return res.json({ error: "Votre profil n'a pas été trouvé" });
+		}
+	} catch (error) {
+		console.error(error);
+		return res.json({ error: "Erreur base de données" });
+	}
+};
+
+const getBooleanPet = async (req, res) => {
+	const { userId } = req.params;
+	console.log(userId)
+	console.log(userId)
+	try {
+		const profile = await Profile.findOne({ user_id: userId });
+
+		if (profile) {
+			if (profile.isPetSitter) {
+				return res.json({ message: "Vous êtes un Pet Sitter", profile: profile });
+			} else {
+				return res.json({ message: "Vous n'êtes pas un Pet Sitter", profile: profile });
+			}
+		} else {
+			return res.json({ error: "Votre profil n'a pas été trouvé" });
+		}
+	} catch (error) {
+		console.error(error);
+		return res.json({ error: "Erreur base de données" });
+	}
+};
 
 module.exports = {
 	getPetSitters,
 	getUserEmail,
 	getUsersHome,
-
+	getProfileUser,
+	getBooleanPet
 }
