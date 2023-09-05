@@ -21,7 +21,6 @@ router.use(
 router.get('/', test)
 // je le definie dans authControllers.
 
-
 // Requete via le useContext
 router.get('/token', getToken)
 

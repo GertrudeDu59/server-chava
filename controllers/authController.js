@@ -156,7 +156,7 @@ const loginUser = async (req, res) => {
 }
 
 
-// PORFILE
+// Profile avec token
 const getToken = (req, res) => {
 	// la req va etre le cookie token que l'on retrouve lorsqu'on login que l'on retrouve dans l'inpecteur network
 	const { token } = req.cookies
@@ -184,7 +184,6 @@ const logout = (req, res) => {
 		});
 	}
 };
-
 
 module.exports = {
 	test,

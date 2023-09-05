@@ -2,7 +2,6 @@
 const User = require('../models/user');
 const Profile = require("../models/profile")
 
-
 const getPetSitters = async (req, res) => {
 	try {
 		const { limit, page } = req.query;
@@ -37,7 +36,6 @@ const getUserEmail = async (req, res) => {
 	}
 };
 
-
 const getUsersHome = async (req, res) => {
 	try {
 		const users = await User
@@ -68,8 +66,8 @@ const getProfileUser = async (req, res) => {
 		return res.json({ error: "Erreur base de données" });
 	}
 };
-const getBooleanPet = async (req, res) => {
 
+const getBooleanPet = async (req, res) => {
 	const { userId } = req.params;
 	console.log(userId)
 	console.log(userId)
@@ -90,11 +88,6 @@ const getBooleanPet = async (req, res) => {
 		return res.json({ error: "Erreur base de données" });
 	}
 };
-
-
-
-
-
 
 module.exports = {
 	getPetSitters,
