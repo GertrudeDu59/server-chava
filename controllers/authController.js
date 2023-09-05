@@ -27,6 +27,7 @@ const registerUser = async (req, res) => {
 
 		const ageTimeStamp = new Date(age).getTime(); //crée un nouvel objet Date en utilisant la valeur date, getTime() pour obtenir le timestamp associé
 		const ageMin = 16 * 365.25 * 24 * 60 * 60 * 1000; // 16 ans en millisecondes
+		const ageMax = 100 * 365.25 * 24 * 60 * 60 * 1000; 
 		if (!age) {
 			return res.json({
 				error: 'Votre age est requis.'
@@ -34,6 +35,12 @@ const registerUser = async (req, res) => {
 		} else if (Date.now() - ageTimeStamp < ageMin) {
 			return res.json({
 				error: 'Vous devez avoir 16 ans minimun.'
+			})
+		
+		}
+		else if (Date.now() - ageTimeStamp > ageMax){
+			return res.json({
+				error:"La date n'est pas valide"
 			})
 		}
 
@@ -149,6 +156,8 @@ const loginUser = async (req, res) => {
 }
 
 
+// PORFILE
+const getToken = (req, res) => {
 // TOKKEN
 const getTokken = (req, res) => {
 	// la req va etre le cookie token que l'on retrouve lorsqu'on login que l'on retrouve dans l'inpecteur network
@@ -164,26 +173,27 @@ const getTokken = (req, res) => {
 	}
 }
 
-
-const logOut = (req, res) => {
+const logout = (req, res) => {
 	const { token } = req.cookies;
 	if (token) {
-	  res.cookie('token', '', { expires: new Date(0) });
-	  return res.json({
-		message: 'Déconnexion réussie',
-	  });
+		res.cookie('token', '', { expires: new Date(0) });
+		return res.json({
+			message: 'Déconnexion réussie',
+		});
 	} else {
-	  return res.json({
-		error: 'Erreur de base de données',
-	  });
+		return res.json({
+			error: 'Erreur de base de données',
+		});
 	}
-  };
+};
+
+
 
 
 module.exports = {
 	test,
 	registerUser,
 	loginUser,
-	getTokken,
-	logOut
+	getToken,
+	logout,
 }
