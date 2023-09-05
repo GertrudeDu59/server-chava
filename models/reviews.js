@@ -15,7 +15,7 @@ const reviewsSchema = new Schema({
             //Stockera l'ID de l'utilisateur qui a ecris le commentaire
             userId: {type: mongoose.Schema.Types.ObjectId, ref: 'user'},
             // Stockera l'ID de l'utilisateur qui a reçu le commentaire
-            profilId: {type: mongoose.Schema.Types.ObjectId, ref: 'user'},
+            profilId: {type: mongoose.Schema.Types.ObjectId, ref: 'Profile'},
 })
 
 //crée un modèle appelé reviewModel en se basant sur le schéma reviewsSchema

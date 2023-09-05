@@ -6,7 +6,7 @@ const { test, registerUser, loginUser, getProfile ,logOut} = require('../control
 const { getUsers, getUserEmail } = require('../controllers/getController')
 const { registerOptions } = require('../controllers/optionsController')
 const { registerRatings } = require('../controllers/optionsController')
-const { createReview } = require('../controllers/reviewController')
+const { createReview, getProfileWithComments } = require('../controllers/reviewController')
 
 //  middleware
 // le router va utiliser cors qui contient 2 parametres 
@@ -35,6 +35,8 @@ router.put("/registerOptions/:userId", registerOptions)
 router.put("/registerRatings/:userId", registerRatings)
 //ReviewControllers
 router.post('/createReview', createReview)
+router.post('/GetReview', getProfileWithComments)
+
 
 
 
