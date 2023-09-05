@@ -27,7 +27,7 @@ const registerUser = async (req, res) => {
 
 		const ageTimeStamp = new Date(age).getTime(); //crée un nouvel objet Date en utilisant la valeur date, getTime() pour obtenir le timestamp associé
 		const ageMin = 16 * 365.25 * 24 * 60 * 60 * 1000; // 16 ans en millisecondes
-		const ageMax = 100 * 365.25 * 24 * 60 * 60 * 1000; 
+		const ageMax = 100 * 365.25 * 24 * 60 * 60 * 1000;
 		if (!age) {
 			return res.json({
 				error: 'Votre age est requis.'
@@ -36,11 +36,11 @@ const registerUser = async (req, res) => {
 			return res.json({
 				error: 'Vous devez avoir 16 ans minimun.'
 			})
-		
+
 		}
-		else if (Date.now() - ageTimeStamp > ageMax){
+		else if (Date.now() - ageTimeStamp > ageMax) {
 			return res.json({
-				error:"La date n'est pas valide"
+				error: "La date n'est pas valide"
 			})
 		}
 
@@ -139,7 +139,7 @@ const loginUser = async (req, res) => {
 		// si le mdp est bon on ajoute un tokken donc un cookie qui va tracker durant l'application
 		if (match) {
 			//on utilise le parametre .sign cela va signer le token
-			jwt.sign({ email: user.email, id: user._id, fname: user.fname, lname: user.lname, options: { petSitter: user.options.petSitter } }, process.env.JWT_SECRET, {},
+			jwt.sign({ email: user.email, id: user._id, fname: user.fname, lname: user.lname }, process.env.JWT_SECRET, {},
 				(err, token) => {
 					if (err) throw err;
 					res.cookie('token', token).json(user)

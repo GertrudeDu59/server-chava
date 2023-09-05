@@ -16,33 +16,7 @@ const userSchema = new Schema({
 	tel: Number,
 	town: String,
 	password: String,
-	options: {
-		petSitter: { type: Boolean, default: false },
-		pet: String,
-		description: String,
-		services: String,
-		rating: { type: Number, default: 0 },
-		ratingNumber: { type: Number, default: 0 },
-		image: String,
-		pet: {
-			owner_Chat: { type: Boolean, default: false },
-			owner_Chien: { type: Boolean, default: false },
-			owner_Lapin: { type: Boolean, default: false },
-			owner_Hamster: { type: Boolean, default: false },
-		},
-		petOffer: {
-			offer_Chat: { type: Boolean, default: false },
-			offer_Chien: { type: Boolean, default: false },
-			offer_Lapin: { type: Boolean, default: false },
-			offer_Hamster: { type: Boolean, default: false },
-		},
-		services: {
-			keep: { type: Boolean, default: false },
-			lodging: { type: Boolean, default: false },
-			walking: { type: Boolean, default: false },
-			visit: { type: Boolean, default: false },
-		}
-	}
+	profile: { type: Schema.Types.ObjectId, ref: 'profile' }
 })
 
 //crée un modèle appelé UserModel en se basant sur le schéma userSchema

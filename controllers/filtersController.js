@@ -1,13 +1,14 @@
 const User = require('../models/user');
+const Profile = require('../models/profile')
 
 const animalsFilter = async (req, res) => {
 	const { animal_type } = req.params;
 
 	try {
 		const query = {};
-		query[`options.petOffer.${animal_type}`] = true;
+		query[`pet_offer.${animal_type}`] = true;
 
-		const users = await User.find(query);
+		const users = await Profile.find(query).populate('user_id', 'fname lname town');
 		res.status(200).json(users);
 	} catch (error) {
 		console.error(error);
@@ -17,11 +18,12 @@ const animalsFilter = async (req, res) => {
 
 const serviceFilter = async (req, res) => {
 	const { service_type } = req.params;
+	console.log(service_type)
 	try {
 		const query = {};
-		query[`options.services.${service_type}`] = true;
+		query[`services.${service_type}`] = true;
 
-		const users = await User.find(query);
+		const users = await Profile.find(query).populate('user_id', 'fname lname town');
 		res.status(200).json(users);
 	} catch (error) {
 		console.error(error);

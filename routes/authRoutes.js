@@ -2,10 +2,10 @@
 const express = require('express');
 const router = express.Router();
 const cors = require('cors');
-const { test, registerUser, loginUser, getToken ,logout} = require('../controllers/authController')
-const { getPetSitters, getUserEmail ,getUsersHome} = require('../controllers/getController')
+const { test, registerUser, loginUser, getToken, logout } = require('../controllers/authController')
+const { getPetSitters, getUserEmail, getUsersHome, getProfileUser, getBooleanPet } = require('../controllers/getController')
 const { animalsFilter, serviceFilter } = require('../controllers/filtersController')
-const { registerPetSitter} = require('../controllers/optionsController')
+const { addProfile } = require('../controllers/optionsController')
 
 //  middleware
 // le router va utiliser cors qui contient 2 parametres 
@@ -29,8 +29,10 @@ router.get('/token', getToken)
 router.get("/check", getUserEmail)
 router.post('/register', registerUser)
 router.post('/login', loginUser)
-router.put("/addprofile/:userId", registerPetSitter)
+router.put("/addprofile/:userId", addProfile)
 router.delete('/logout', logout)
+router.get("/getprofile/:userId", getProfileUser)
+router.get("/getbooleanpet/:userId", getBooleanPet)
 
 // Route pour la page home 
 router.get("/getusershome", getUsersHome)
