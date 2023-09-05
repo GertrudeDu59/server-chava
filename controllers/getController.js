@@ -89,6 +89,7 @@ const getBooleanPet = async (req, res) => {
 	}
 };
 
+
 module.exports = {
 	getPetSitters,
 	getUserEmail,

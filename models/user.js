@@ -17,6 +17,7 @@ const userSchema = new Schema({
 	town: String,
 	password: String,
 	profile: { type: Schema.Types.ObjectId, ref: 'profile' }
+
 })
 
 //crée un modèle appelé UserModel en se basant sur le schéma userSchema

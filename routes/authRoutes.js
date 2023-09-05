@@ -2,10 +2,10 @@
 const express = require('express');
 const router = express.Router();
 const cors = require('cors');
-const { test, registerUser, loginUser, getToken, logout } = require('../controllers/authController')
+const { test, registerUser, loginUser, getToken, logout,addProfile } = require('../controllers/authController')
 const { getPetSitters, getUserEmail, getUsersHome, getProfileUser, getBooleanPet } = require('../controllers/getController')
 const { animalsFilter, serviceFilter } = require('../controllers/filtersController')
-const { addProfile } = require('../controllers/optionsController')
+
 
 //  middleware
 // le router va utiliser cors qui contient 2 parametres 
