@@ -149,8 +149,8 @@ const loginUser = async (req, res) => {
 }
 
 
-// PORFILE
-const getProfile = (req, res) => {
+// TOKKEN
+const getTokken = (req, res) => {
 	// la req va etre le cookie token que l'on retrouve lorsqu'on login que l'on retrouve dans l'inpecteur network
 	const { token } = req.cookies
 	if (token) {
@@ -184,6 +184,6 @@ module.exports = {
 	test,
 	registerUser,
 	loginUser,
-	getProfile,
+	getTokken,
 	logOut
 }

@@ -13,9 +13,9 @@ const reviewsSchema = new Schema({
             //Date de creation qui a pour type une date et une valeur par default de date.now
             createdAt: {type: Date, default: Date.now},
             //Stockera l'ID de l'utilisateur qui a ecris le commentaire
-            userId: {type: mongoose.Schema.Types.ObjectId, ref: 'user'},
+            userId: {type: mongoose.Schema.Types.ObjectId, ref: 'users'},
             // Stockera l'ID de l'utilisateur qui a reçu le commentaire
-            profilId: {type: mongoose.Schema.Types.ObjectId, ref: 'Profile'},
+            profilId: {type: mongoose.Schema.Types.ObjectId, ref: 'profiles'},
 })
 
 //crée un modèle appelé reviewModel en se basant sur le schéma reviewsSchema

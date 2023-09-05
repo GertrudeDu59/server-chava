@@ -2,11 +2,9 @@
 const express = require('express');
 const router = express.Router();
 const cors = require('cors');
-const { test, registerUser, loginUser, getProfile ,logOut} = require('../controllers/authController')
+const { test, registerUser, loginUser, getTokken ,logOut} = require('../controllers/authController')
 const { getUsers, getUserEmail } = require('../controllers/getController')
-const { registerOptions } = require('../controllers/optionsController')
-const { registerRatings } = require('../controllers/optionsController')
-const { createReview, getProfileWithComments } = require('../controllers/reviewController')
+const { createReview, getReviews } = require('../controllers/reviewController')
 
 //  middleware
 // le router va utiliser cors qui contient 2 parametres 
@@ -25,17 +23,14 @@ router.get('/', test)
 //AuthController
 router.post('/Register', registerUser)
 router.post('/Login', loginUser)
-router.get('/Profile', getProfile)
+router.get('/tokken', getTokken)
 router.delete('/logOut', logOut)
 //GetController
 router.get("/users", getUsers)
 router.get("/check", getUserEmail)
-//OptionsControllers
-router.put("/registerOptions/:userId", registerOptions)
-router.put("/registerRatings/:userId", registerRatings)
 //ReviewControllers
 router.post('/createReview', createReview)
-router.post('/GetReview', getProfileWithComments)
+router.get('/GetReview', getReviews)
 
 
 

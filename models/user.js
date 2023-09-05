@@ -16,15 +16,6 @@ const userSchema = new Schema({
 	tel: Number,
 	town: String,
 	password: String,
-	options: {
-		petSitter: { type: Boolean, default: false },
-		pet: String,
-		description: String,
-		services: String,
-		rating: { type: Number, default: 0 },
-		ratingNumber: { type: Number, default: 0 },
-		image: String
-	}
 })
 
 //crée un modèle appelé UserModel en se basant sur le schéma userSchema

@@ -22,22 +22,24 @@ const createReview = async (req, res) => {
     });
     // Enregistrer la commentaire dans la base de données
     await newReview.save();
+    
     return res.json(newReview);
   } catch (error) {
     console.log(error);
   }
 };
 
-const getProfileWithComments = async (req, res) => {
+const getReviews = async (req, res) => {
   try {
     const userId = req.body.userId; // Récupérez l'identifiant de l'utilisateur depuis req.body
 
 
     // Récupérez tous les commentaires où le profilId correspond à l'utilisateur
-    const userComments = await Review.find({ profilId: userId });
+    const userReviews = await Review.find({ profilId: userId }).populate('userId');
 
     // Affichez les informations du profil et les commentaires sur la page du profil
-    res.json({ userProfile: 'Informations du profil', userComments });
+    res.json({  userReviews });
+    
   } catch (error) {
     console.error(error);
     res.json({ error: "Une erreur s'est produite lors de la récupération des données du profil." });
@@ -46,5 +48,5 @@ const getProfileWithComments = async (req, res) => {
 
 module.exports = {
   createReview,
-  getProfileWithComments,
+  getReviews,
 };
