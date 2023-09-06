@@ -16,6 +16,7 @@ const userSchema = new Schema({
 	tel: Number,
 	town: String,
 	password: String,
+	isAdmin: { type: Boolean, default: false },
 	profile: { type: Schema.Types.ObjectId, ref: 'profile' }
 
 })

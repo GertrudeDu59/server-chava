@@ -150,7 +150,7 @@ const addProfile = async (req, res) => {
 			'pet_owner': pet_owner,
 			'description': description,
 			'services': services,
-			'isPetSitter' : isPetSitter,
+			'isPetSitter': isPetSitter,
 		});
 
 		if (!updatedProfile) {
@@ -197,7 +197,7 @@ const loginUser = async (req, res) => {
 		// si le mdp est bon on ajoute un tokken donc un cookie qui va tracker durant l'application
 		if (match) {
 			//on utilise le parametre .sign cela va signer le token
-			jwt.sign({ email: user.email, id: user._id, fname: user.fname, lname: user.lname }, process.env.JWT_SECRET, {expiresIn: '30m'},
+			jwt.sign({ email: user.email, id: user._id, fname: user.fname, lname: user.lname, isAdmin: user.isAdmin }, process.env.JWT_SECRET, { expiresIn: '30m' },
 				(err, token) => {
 					if (err) throw err;
 					res.cookie('token', token).json(user)

@@ -2,9 +2,10 @@
 const express = require('express');
 const router = express.Router();
 const cors = require('cors');
-const { test, registerUser, loginUser, getToken, logout,addProfile } = require('../controllers/authController')
+const { test, registerUser, loginUser, getToken, logout, addProfile } = require('../controllers/authController')
 const { getPetSitters, getUserEmail, getUsersHome, getProfileUser, getBooleanPet } = require('../controllers/getController')
-const { animalsFilter, serviceFilter } = require('../controllers/filtersController')
+const { animalsFilter, serviceFilter } = require('../controllers/filtersController');
+const { deleteuser } = require("../controllers/adminController");
 
 
 //  middleware
@@ -41,8 +42,8 @@ router.get("/getpetsitters", getPetSitters)
 router.get("/animalsfilter/:animal_type", animalsFilter)
 router.get("/servicesfilter/:service_type", serviceFilter)
 
-
-
+// Page administration
+router.delete("/deleteuser/:userId",deleteuser)
 
 
 
