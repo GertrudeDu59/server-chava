@@ -23,7 +23,7 @@ const serviceFilter = async (req, res) => {
 		const query = {};
 		query[`services.${service_type}`] = true;
 
-		const users = await Profile.find(query).populate('user_id', 'fname lname town');
+		const users = await Profile.find(query).populate('user_id', 'fname lname town rating ratingNumber');
 		res.status(200).json(users);
 	} catch (error) {
 		console.error(error);
