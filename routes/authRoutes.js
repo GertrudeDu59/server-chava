@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const cors = require('cors');
 const { test, registerUser, loginUser, getToken, logout, addProfile } = require('../controllers/authController')
-const { getPetSitters, getUserEmail, getUsersHome, getProfileUser, getBooleanPet } = require('../controllers/getController')
+const { getPetSitters, getUserEmail, getUsersHome, getProfileUser, getBooleanPet,getUser } = require('../controllers/getController')
 const { animalsFilter, serviceFilter } = require('../controllers/filtersController');
 const { deleteuser } = require("../controllers/adminController");
 
@@ -33,6 +33,7 @@ router.put("/addprofile/:userId", addProfile)
 router.delete('/logout', logout)
 router.get("/getprofile/:userId", getProfileUser)
 router.get("/getbooleanpet/:userId", getBooleanPet)
+router.get("/getuser/:userId", getUser)
 
 // Route pour la page home 
 router.get("/getusershome", getUsersHome)
