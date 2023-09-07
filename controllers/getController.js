@@ -72,22 +72,32 @@ const getProfileUser = async (req, res) => {
 		return res.json({ error: "Erreur base de données" });
 	}
 };
-
 const getUser = async (req, res) => {
-	const { userId } = req.params;
+	const { id } = req.params;
+	
 	try {
-		const user = await User.findOne({ _id: userId });
-		if (user) {
-			return res.status(200).json({ message: "Votre profil a été trouvé", user });
-		} else {
-			return res.status(404).json({ error: "Votre profil n'a pas été trouvé" });
-		}
-	} catch (error) {
-		console.error(error);
-		return res.status(500).json({ error: "Erreur base de données" });
-	}
-};
+	  const user = await User.findById(id);
+	
+	  if (user) {
+		return res.status(200).json({ message: "Votre profil a été trouvé", user: {user_id :user} });
+	  }
+	
+	  const profile = await Profile.findById(id).populate('user_id', 'fname lname town')
 
+	
+	  if (profile) {
+		return res.status(200).json({ message: "Votre profil a été trouvé", user: profile });
+	  }
+	
+	  // If neither user nor profile is found, return a 404 error
+	  return res.status(404).json({ error: "Votre profil n'a pas été trouvé" });
+	} catch (error) {
+	  console.error(error);
+	  return res.status(500).json({ error: "Erreur base de données" });
+	}
+  };
+  
+  
 const getBooleanPet = async (req, res) => {
 	const { userId } = req.params;
 	try {

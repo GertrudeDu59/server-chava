@@ -33,7 +33,7 @@ router.put("/addprofile/:userId", addProfile)
 router.delete('/logout', logout)
 router.get("/getprofile/:userId", getProfileUser)
 router.get("/getbooleanpet/:userId", getBooleanPet)
-router.get("/getuser/:userId", getUser)
+router.get("/getuser/:id", getUser)
 
 // Route pour la page home 
 router.get("/getusershome", getUsersHome)
