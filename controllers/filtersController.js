@@ -18,7 +18,6 @@ const animalsFilter = async (req, res) => {
 
 const serviceFilter = async (req, res) => {
 	const { service_type } = req.params;
-	console.log(service_type)
 	try {
 		const query = {};
 		query[`services.${service_type}`] = true;

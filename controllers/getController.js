@@ -8,16 +8,23 @@ const getPetSitters = async (req, res) => {
 		const perPage = parseInt(limit) || 10;
 		const currentPage = parseInt(page) || 1;
 
+		// Calculer l'indice de départ pour la pagination
 		const skip = (currentPage - 1) * perPage;
 
-		const users = await Profile.find({ 'isPetSitter': true, }).populate('user_id', 'fname lname town')
+		// Utilisez .skip() et .limit() pour paginer les résultats de la requête
+		const users = await Profile.find({ 'isPetSitter': true })
+			.populate('user_id', 'fname lname town')
+			.skip(skip)
+			.limit(perPage);
 
+		// Retournez le résultat paginé
 		res.status(200).json(users);
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({ error: "Erreur de récupération des utilisateurs" });
 	}
 };
+
 
 const getUserEmail = async (req, res) => {
 	const { email } = req.query;
@@ -66,7 +73,6 @@ const getProfileUser = async (req, res) => {
 };
 
 const getUser = async (req, res) => {
-	console.log("ok")
 	const { userId } = req.params;
 	try {
 		const user = await User.findOne({ _id: userId });
