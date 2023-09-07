@@ -14,6 +14,7 @@ const getPetSitters = async (req, res) => {
 		// Utilisez .skip() et .limit() pour paginer les résultats de la requête
 		const users = await Profile.find({ 'isPetSitter': true })
 			.populate('user_id', 'fname lname town')
+			// Utilisation de skip lourde à éviter
 			.skip(skip)
 			.limit(perPage);
 
