@@ -1,13 +1,9 @@
 const User = require('../models/user');
 const Profile = require('../models/profile');
 
-
-
 const deleteuser = async (req, res) => {
 	const { userId } = req.params;
-
 	try {
-
 		const user = await User.findByIdAndDelete(userId);
 		if (!user) {
 			return res.json({ error: "Utilisateur introuvable" });

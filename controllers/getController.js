@@ -64,21 +64,19 @@ const getProfileUser = async (req, res) => {
 		return res.json({ error: "Erreur base de données" });
 	}
 };
+
 const getUser = async (req, res) => {
 	console.log("ok")
 	const { userId } = req.params;
 	try {
 		const user = await User.findOne({ _id: userId });
 		if (user) {
-			// If the user is found, return their data as JSON
 			return res.status(200).json({ message: "Votre profil a été trouvé", user });
 		} else {
-			// If the user is not found, return an error message
 			return res.status(404).json({ error: "Votre profil n'a pas été trouvé" });
 		}
 	} catch (error) {
 		console.error(error);
-		// Handle database error
 		return res.status(500).json({ error: "Erreur base de données" });
 	}
 };

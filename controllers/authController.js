@@ -9,7 +9,6 @@ const test = (req, res) => {
 	res.json('Le teste fonctionne')
 }
 
-
 // REGISTER !!!
 const registerUser = async (req, res) => {
 	try {
