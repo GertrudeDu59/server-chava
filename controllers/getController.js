@@ -26,7 +26,7 @@ const getPetSitters = async (req, res) => {
 	}
 };
 
-
+  
 const getUserEmail = async (req, res) => {
 	const { email } = req.query;
 	try {
