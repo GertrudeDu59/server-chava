@@ -122,7 +122,7 @@ const registerUser = async (req, res) => {
 
 // ajouter un profile petSitter
 
-const addProfile = async (req, res) => {
+const registerProfile = async (req, res) => {
 	try {
 		const { userId } = req.params;
 		const {
@@ -174,6 +174,20 @@ const addProfile = async (req, res) => {
 	} catch (error) {
 		console.error(error);
 		return res.status(500).json({ error: 'Erreur du serveur', details: error.message });
+	}
+};
+const getUserEmail = async (req, res) => {
+	const { email } = req.query;
+	try {
+		const user = await User.findOne({ email });
+		if (user) {
+			return res.json({ message: "Votre email a été trouvé" });
+		} else {
+			return res.json({ error: "Votre email n'a pas été trouvé" });
+		}
+	} catch (error) {
+		console.error(error);
+		return res.json({ error: "Erreur base de données" });
 	}
 };
 
@@ -228,7 +242,7 @@ const getToken = (req, res) => {
 	}
 }
 
-const logout = (req, res) => {
+const logoutUser = (req, res) => {
 	const { token } = req.cookies;
 	if (token) {
 		res.cookie('token', '', { expires: new Date(0) });
@@ -245,8 +259,9 @@ const logout = (req, res) => {
 module.exports = {
 	test,
 	registerUser,
+	registerProfile,
 	loginUser,
+	logoutUser,
 	getToken,
-	logout,
-	addProfile
+	getUserEmail
 }

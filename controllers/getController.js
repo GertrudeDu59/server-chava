@@ -26,21 +26,6 @@ const getPetSitters = async (req, res) => {
 	}
 };
 
-  
-const getUserEmail = async (req, res) => {
-	const { email } = req.query;
-	try {
-		const user = await User.findOne({ email });
-		if (user) {
-			return res.json({ message: "Votre email a été trouvé" });
-		} else {
-			return res.json({ error: "Votre email n'a pas été trouvé" });
-		}
-	} catch (error) {
-		console.error(error);
-		return res.json({ error: "Erreur base de données" });
-	}
-};
 
 const getUsersHome = async (req, res) => {
 	try {
@@ -121,7 +106,6 @@ const getBooleanPet = async (req, res) => {
 
 module.exports = {
 	getPetSitters,
-	getUserEmail,
 	getUsersHome,
 	getProfileUser,
 	getBooleanPet,
