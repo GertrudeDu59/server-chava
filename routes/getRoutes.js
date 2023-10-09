@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 const { getPetSitters, getUsersHome, getProfileUser, getBooleanPet,getUser } = require('../controllers/getController')
-const { animalsFilter, serviceFilter } = require('../controllers/filtersController');
+const { animalsFilter, serviceFilter, filterUsers } = require('../controllers/filtersController');
 
 
 router.get("/getprofile/:userId", getProfileUser)
@@ -17,5 +17,6 @@ router.get("/getallusers", getUsersHome)
 router.get("/getpetsitters", getPetSitters)
 router.get("/animalsfilter/:animal_type", animalsFilter)
 router.get("/servicesfilter/:service_type", serviceFilter)
+router.get("/filterUsers/:service_type/:animal_type", filterUsers);
 
 module.exports = router;
