@@ -2,7 +2,6 @@ const User = require('../models/user');
 const Profile = require('../models/profile')
 
 const animalsFilter = async (req, res) => {
-
 	const { animal_type } = req.params;
 	try {
 		// Split the received animal_types string into an array
