@@ -21,8 +21,6 @@ const deleteuser = async (req, res) => {
 	}
 };
 
-module.exports = deleteuser;
-
 module.exports = {
-	deleteuser
+	deleteuser,
 }

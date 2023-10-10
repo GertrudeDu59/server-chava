@@ -27,9 +27,9 @@ app.use(cookieParser());
 // Cette ligne de code dit au serveur comment "déballer" les informations envoyées depuis le formulaire, afin qu'il puisse les comprendre.
 app.use(express.urlencoded({extended: false}))
 
-app.use('/', require('./routes/authRoutes')) // initialisation avec app on veut donc que toutes les routes aille vers '/'
-app.use('/', require('./routes/getRoutes')) // initialisation avec app on veut donc que toutes les routes aille vers '/'
-
+app.use('/', require('./routes/authRoutes')) 
+app.use('/', require('./routes/getRoutes')) 
+app.use('/', require('./routes/adminRoutes')) 
 // initalisation du port a ecouter
 const port = 8000;
 // fonction associé avec express appelé listen  pour ecouter le port avec une fonction anonyme qui appel le consol log
