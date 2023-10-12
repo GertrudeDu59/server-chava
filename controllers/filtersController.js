@@ -4,11 +4,8 @@ const Profile = require('../models/profile')
 const animalsFilter = async (req, res) => {
 	const { animal_type } = req.params;
 	try {
-		// Split the received animal_types string into an array
 		const animalTypesArray = animal_type.split(',');
-	
-		// Build the query to match any of the specified animal types
-		const query = {
+			const query = {
 			$or: animalTypesArray.map(animal_type => ({
 			  [`pet_offer.${animal_type}`]: true
 			}))
