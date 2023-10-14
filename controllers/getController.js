@@ -48,9 +48,9 @@ const getProfileUser = async (req, res) => {
 		const profile = await Profile.findOne({ user_id: userId });
 
 		if (profile) {
-			return res.json({ message: "Votre profil a été trouvé", profile: profile });
+			returnres.status(200).json({ message: "Votre profil a été trouvé", profile: profile });
 		} else {
-			return res.json({ error: "Votre profil n'a pas été trouvé" });
+			return res.status(404).json({ error: "Votre profil n'a pas été trouvé" });
 		}
 	} catch (error) {
 		console.error(error);
@@ -66,16 +66,14 @@ const getUser = async (req, res) => {
 	  if (user) {
 		return res.status(200).json({ message: "Votre profil a été trouvé", user: {user_id :user} });
 	  }
-	
-	  const profile = await Profile.findById(id).populate('user_id', 'fname lname town')
-
-	
+	  const profile = await Profile.findById(id).populate('user_id', 'fname lname town');
 	  if (profile) {
 		return res.status(200).json({ message: "Votre profil a été trouvé", user: profile });
 	  }
-	
-	  // If neither user nor profile is found, return a 404 error
-	  return res.status(404).json({ error: "Votre profil n'a pas été trouvé" });
+	  else if (!profile || !user){
+		return res.status(200).json({ message: "Votre profil est introuvable", user: profile });
+
+	  }
 	} catch (error) {
 	  console.error(error);
 	  return res.status(500).json({ error: "Erreur base de données" });
