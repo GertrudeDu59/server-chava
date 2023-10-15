@@ -2,25 +2,29 @@ const User = require('../models/user');
 const Profile = require('../models/profile');
 
 const deleteuser = async (req, res) => {
-	const { userId } = req.params;
+	const { isadmin, userid } = req.query;
 	try {
-		const user = await User.findByIdAndDelete(userId);
+	  if (isadmin) { 
+		const user = await User.findByIdAndDelete(userid);
 		if (!user) {
-			return res.json({ error: "Utilisateur introuvable" });
+		  return res.json({ error: "Utilisateur introuvable" });
 		}
-		const profile = await Profile.findOneAndDelete({ user_id: userId });
-
+		const profile = await Profile.findOneAndDelete({ user_id: userid });
+  
 		if (!profile) {
-			return res.json({ message: "Profile introuvable" });
+		  return res.json({ message: "Profile introuvable" });
 		}
-
 		return res.json({ message: "L'utilisateur et le profil ont été supprimés" });
+	  } else {
+		res.status(403).json({ error: "Vous n'avez pas l'autorisation" });
+	  }
 	} catch (error) {
-		console.error(error);
-		return res.json({ error: "Erreur base de données" });
+	  console.error(error);
+	  return res.json({ error: "Erreur base de données" });
 	}
-};
-
-module.exports = {
+  };
+  
+  module.exports = {
 	deleteuser,
-}
+  };
+  
